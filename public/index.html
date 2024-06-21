@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lolo v5</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <dialog class="dialog" id="filterdialog">
+        <div class="dialog-header">
+            Article Categories:
+            <span class="close">&times;</span>
+        </div>
+        <div class="dialog-body" id="filters"></div>
+        <div class="dialog-footer">
+            <button class="regularbutton" id="check-all">Check All</button>
+            <button class="regularbutton" id="uncheck-all">Uncheck All</button>
+            <button class="regularbutton" id="apply-filter">Apply Filters</button>
+        </div>
+    </dialog>
+    <dialog class="dialog" id="feeddialog">
+        <div class="dialog-header">
+            Edit Feeds:
+            <span class="close">&times;</span>
+        </div>
+        <div class="dialog-body" id="feeds">
+        </div>
+        <div class="dialog-footer">
+            <button class="regularbutton" id="apply-feed">Load Selected Feeds</button>
+            <input type="text" class="linkbox" id="feed-url" placeholder="Add RSS Feed URL">
+            <button class="regularbutton" id="save-feed">Add Feed</button>
+        </div>
+    </dialog>
+    <div id="app">
+        <h1 class="maintitle">Lolo v5</h1>
+        <div class="floating-container" id="buttonrow">
+            <button class="floating" id="show-filter">Filters</button>
+            <button class="floating" id="feed-edit">Feeds</button>
+        </div>
+        <div class="article-container" id="articles"></div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

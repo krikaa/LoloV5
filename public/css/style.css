@@ -1,0 +1,390 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+}
+
+#app {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.maintitle {
+    font-size: 40px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/*-----App article grid and its various sizes-----*/
+
+.article-container {
+    display: grid;
+    margin: auto;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    width: 90%;
+}
+
+@media (min-width: 890px) {
+    .article-container {
+        grid-template-columns: repeat(2, 1fr);
+        width: 830px;
+    }
+}
+
+@media (min-width: 1320px) {
+    .article-container {
+        grid-template-columns: repeat(3, 1fr);
+        width: 1260px;
+    }
+}
+
+@media (min-width: 1750px) {
+    .article-container {
+        grid-template-columns: repeat(4, 1fr);
+        width: 1690px;
+    }
+}
+
+
+/*-----Article preview-----*/
+
+/*Article box*/
+.article {
+    margin: auto;
+    display: grid;
+    grid-template-rows: 160px 40px 75px 20px 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 0;
+    margin-bottom: 0;
+    max-width: 400px;
+    max-height: 320px;
+    height: 100%;
+    width: 100%;
+    background-color: #fefefe;
+}
+
+/*Article header*/
+button.clickyheader {
+    padding: 6px 12px 0 12px;
+    font-size: 1em;
+    font-weight: bold;
+    background: none;
+    border: none;
+    color: inherit;
+    text-align: justify;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 40px;
+}
+
+/*Article description*/
+button.clickydesc {
+    padding: 6px 12px;
+    font-size: 0.9em;
+    background: none;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: normal;
+    height: 100%;
+    display: inline-flex;
+    text-align: justify;
+    position: relative;
+}
+
+/*Article description fader*/
+button.clickydesc::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+    width: 100%;
+    height: 40px;
+    box-shadow: inset 0 -35px 30px 0 #fefefe;
+    z-index: 1;
+}
+
+/*Article image*/
+button.clickyimg {
+    padding: 0;
+    cursor: pointer;
+    display: inline-block;
+    background: none;
+    border: none;
+    margin: -6px auto;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    top: 6px;
+}
+button.clickyimg img {
+    pointer-events: none;
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+}
+
+/*Article details (author, feed)*/
+.details {
+    padding: 0px 10px;
+    font-size: 14px;
+    margin: 0
+}
+
+
+/*-----Article content-----*/
+
+/*Article modal window (whole display)*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+/*Article modal box*/
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #000000;
+    height: 95%;
+    width: 90%;
+    max-width: 1400px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation-name: animatetop;
+    animation-duration: 0.3s;
+}
+
+/*Article modal header*/
+.modal-header {
+    padding: 0px 12px;
+    height: 32px;
+    background-color: #2e2e2e;
+    flex-shrink: 0;
+}
+
+/*Article modal body*/
+.modal-body {
+    height: inherit;
+    padding: 8px 26px;
+    overflow-y: auto;
+    text-align: justify;
+    flex-grow: 1;
+}
+
+/*Loaded article images*/
+.modal-body img {
+    width: auto;
+    max-width: 100%;
+    padding: 1%;
+    height: auto;
+    display: block;
+    margin: initial;
+}
+
+/*Loaded article code blocks (pre)*/
+.modal-body pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: auto;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+/*Loaded article code blocks (textarea)*/
+.modal-body textarea {
+    overflow: hidden;
+    background-color: #f5f5f5;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border-style: none;
+    text-align: left;
+    box-sizing: border-box;
+    resize: none;
+}
+
+
+/*-----Side container (for filter and feeds)-----*/
+.dialog[open] {
+    margin: 0;
+    max-width: 300px;
+    width: 80%;
+    z-index: 3;
+    display: grid;
+    gap: 10px;
+    grid-template-rows: 32px auto 90px;
+    position: fixed;
+    height: auto;
+    overflow-y: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 0;
+    padding: 30px 20px 10px 20px;
+    animation-name: animateleft;
+    animation-duration: 0.3s;
+}
+
+/*Side container header*/
+.dialog-header {
+    height: 32px;
+    width: 100%;
+    overflow: hidden;
+    font-size: 18px;
+}
+
+/*Side container body*/
+.dialog-body {
+    height: inherit;
+    text-align: justify;
+    overflow-y: auto;
+}
+
+
+/*-----Buttons-----*/
+
+/*Checkbox*/
+input[type="checkbox"] {
+    margin-bottom: 14px;
+    vertical-align: middle;
+    accent-color: #2e2e2e;
+}
+
+/*Label for checkboxes*/
+label {
+    display: inline-block;
+    width: 85%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*Delete feed button*/
+.delete-feed {
+    vertical-align: top;
+    font-size: 18px;
+}
+.delete-feed:hover,
+.delete-feed:focus {
+    color: #aaa;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Close button*/
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Normal textbutton*/
+button.regularbutton {
+    border: 0;
+    background-color: #f5f5f5;
+    padding: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 4px;
+    border-color: #aaa;
+    width: 100%;
+    margin-bottom: 5px;
+}
+button.regularbutton:hover {
+    box-shadow: 0 0;
+    background-color: #c9c9c9
+}
+
+/*Floating sidebuttons (for feed/filter)*/
+.floating-container {
+    position: fixed;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+    width: 60px;
+    height: 140px;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+    animation-name: animatetop;
+    animation-duration: 0.3s;
+}
+button.floating {
+    width: 55px;
+    height: 55px;
+    background-color: #2e2e2e;
+    color: #fefefe;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 0;
+}
+button.floating:hover {
+    box-shadow: 0 0;
+    background-color:#222222
+}
+
+/*Textbox for URL*/
+.linkbox {
+    padding: 5px;
+    margin: 2px auto;
+    width: 97%;
+    position: initial;
+    border: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    text-align: center;
+}
+
+
+/*-----Animations-----*/
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animateleft {
+    from {
+        left: -300px;
+        opacity: 0
+    }
+
+    to {
+        left: 0;
+        opacity: 1
+    }
+}
